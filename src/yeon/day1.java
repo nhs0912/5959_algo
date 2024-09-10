@@ -30,23 +30,32 @@ public class day1 {
             request[i] = Integer.valueOf(st.nextToken());
         }
 
-        int[] result = solution(request);
+        int[] result = solution2(request);
 
         System.out.print(Arrays.toString(result));
     }
 
-    private static int[] solution(int[] numbers) {
+    private static int[] solution(int[] numbers){
+        Set<Integer> set = new TreeSet<>();
+
+        for(int i = 0; i < numbers.length ; i++){
+            for(int j = i+1; j < numbers.length; j++){
+                set.add(numbers[i] + numbers[j]);
+            }
+        }
+
+        return Arrays.stream(set.toArray(new Integer[0])).mapToInt(i -> i).toArray();
+    }
+
+    private static int[] solution2(int[] numbers) {
         Set<Integer> answer = new HashSet<>();
 
-        // 리스트 변환
-        List<Integer> list = Arrays.stream(numbers)
-                                    .boxed()
-                                    .collect(Collectors.toList());
+        int length = numbers.length;
 
         // 두 수 더하기
-        for(int i = 0; i < list.size(); i++){
-            for(int j=i+1; j < list.size(); j++){
-                int addNum = list.get(i) + list.get(j);
+        for(int i = 0; i < length; i++){
+            for(int j=i+1; j < length; j++){
+                int addNum = numbers[i] + numbers[j];
 
                 answer.add(addNum);
             }
@@ -60,6 +69,7 @@ public class day1 {
         int[] result = new int[setInt.size()];
 
         Iterator<Integer> iterator = setInt.stream()
+                                            .sorted()
                                             .iterator();
 
         for(int i=0; i < setInt.size(); i++){
