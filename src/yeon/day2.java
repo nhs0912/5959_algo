@@ -37,7 +37,7 @@ public class day2 {
 
     private static int[] solution(int[] answers) {
 
-        Map<Integer, Integer> m = new HashMap<>();
+        Map<Integer, Integer> m = new TreeMap<>();
 
         int[] studentA = {1, 2, 3, 4, 5};
         int[] studentB = {2, 1, 2, 3, 2, 4, 2, 5};
@@ -55,25 +55,23 @@ public class day2 {
             }
         }
 
-        List<Integer> keys = new ArrayList<>(m.keySet()
-                                                .stream()
-                                                .sorted((o1, o2) -> m.get(o2).compareTo(m.get(o1)))
-                                                .toList());
+        int maxNum = getMaxNum(m);
 
-        int num = 0;
+        return m.entrySet()
+                .stream()
+                .filter(a -> a.getValue().equals(maxNum))
+                .mapToInt(Map.Entry::getKey)
+                .toArray();
+    }
 
-        for(Integer key : keys){
-            if(num <= m.get(key)){
-                num = m.get(key);
+    private static int getMaxNum(Map<Integer, Integer> m) {
+        int maxNum = 0;
+        for(Integer key : m.keySet()){
+            if(maxNum < m.get(key)){
+                maxNum = m.get(key);
             }
-            else{
-                keys.remove(key);
-            }
-
         }
-
-        return keys.stream().sorted().mapToInt(Integer::intValue).toArray();
-
+        return maxNum;
     }
 
 }
