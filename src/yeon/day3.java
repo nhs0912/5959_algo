@@ -1,13 +1,12 @@
 package src.yeon;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 public class day3 {
 
     /**
      * [문제명]
-     * 모의고사
+     * 행렬의 곱셉
      * [링크]
      * https://school.programmers.co.kr/learn/courses/30/lessons/12949
      * [문제 설명]
