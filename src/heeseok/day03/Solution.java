@@ -21,7 +21,7 @@ class Solution {
         //행렬 곱
         for(int width=0; width< arr2Width; width++) {            
             for(int height=0; height < arr1Height; height++) {
-                for(int k = 0; k < arr1[0].length; k++){
+                for(int k = 0; k < arr1Width; k++){
                     answer[height][width] += arr1[height][k] * arr2[k][width];
                 }                
             }
