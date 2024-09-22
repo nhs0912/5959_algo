@@ -1,6 +1,3 @@
-import java.util.*;
-import java.util.stream.*;
-import java.math.BigDecimal;
 //문제 : 실패율 
 // https://school.programmers.co.kr/learn/courses/30/lessons/42889
 /*
@@ -16,73 +13,34 @@ import java.math.BigDecimal;
  - 실패율이 같을 경우 오름차순으로 정렬
  */
 
+import java.util.*;
+import java.util.HashMap;
+
 
 class Solution {
-    
-    class Stage implements Comparable<Stage> {
-        private int number;
-        private double failRate;
-        
-        public Stage(int number, double failRate) {
-            this.number= number;
-            this.failRate = failRate;
+    public int[] solution(int N, int[] stages) {
+        int[] challenger = new int[N + 2]; //stage별로 도전자 수 저장 
+        for(int i=0; i< stages.length; i++){
+            challenger[stages[i]] +=1;
         }
         
-        public int getNumber() {
-            return this.number;            
+        Map<Integer, Double> failStages = new HashMap<>();
+        
+        double stageSize = stages.length;
+        
+        int index = 1;
+        while(N--> 0) {
+            if(challenger[index] == 0) {
+                failStages.put(index, 0.);
+            } else{
+                failStages.put(index, challenger[index] / stageSize);
+                stageSize -= challenger[index];
+            }
+            index++;
         }
-        
-        public double getFailRate() {
-            return this.failRate;
-        }                        
-        
-        @Override
-        public int compareTo(Stage input) {
-            return (this.getFailRate() > input.getFailRate())? -1 : (this.getFailRate() == input.getFailRate())? 0: 1;
-        }
-    }
-    
-    private boolean isFailStage(int processStageNumber, int currentStageNumber) {
-        return processStageNumber <= currentStageNumber;
-    }
-    
-    private double calculateFailRate(int failCount, int wholeStageCount) {
-        return (double)failCount/(double)wholeStageCount;
-    }
-    
-    public int[] solution(int N, int[] stages) {      
-       int[] answer = new int[N];
-       List<Integer> stageBasket = Arrays.stream(stages)
-           .boxed()
-           .collect(Collectors.toList());
-       
-       List<Stage> stageObjects = new ArrayList<>();
-       int currentStageNumber = 0;
-        
-       while(N-- > 0) {
-           int failCount = 0;
-           currentStageNumber++;
-           int currentStageSize = stageBasket.size();
-           for(int i=0; i< stageBasket.size(); i++) {
-               int wholeBasketSize = stageBasket.size();
-               if(isFailStage(stageBasket.get(i), currentStageNumber)){
-                   failCount++;
-                   stageBasket.remove(i);//실패한 케이스 삭제                 
-                   i--;
-               }              
-           }                      
-           
-           double failRate = calculateFailRate(failCount, currentStageSize);           
-           stageObjects.add(new Stage(currentStageNumber, failRate));
-       }
-       Collections.sort(stageObjects);               
-        
-       int index = 0;
-       for(Stage stage : stageObjects) {
-           answer[index++] = stage.getNumber();           
-       }
-         
-            
-        return answer;
+        return failStages.entrySet()
+            .stream()
+            .sorted((o1, o2) -> Double.compare(o2.getValue(), o1.getValue())).mapToInt(HashMap.Entry::getKey)
+            .toArray();
     }
 }
