@@ -11,12 +11,10 @@ public class day6 {
      * https://school.programmers.co.kr/learn/courses/30/lessons/12909?language=java
      */
     public static void main(String[] args) {
-        System.out.println(solution("(())())"));
+        System.out.println(solution("(())()"));
     }
 
     private static boolean solution(String s) {
-        boolean answer = true;
-
         Stack<Character> stack = new Stack<>();
 
         for(char item : s.toCharArray()){
@@ -26,12 +24,11 @@ public class day6 {
             }
 
             if (stack.empty()) {
-                answer = false;
-                break;
+                return false;
             }
             stack.pop();
         }
 
-        return stack.empty() && answer;
+        return stack.empty();
     }
 }
