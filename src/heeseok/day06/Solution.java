@@ -16,8 +16,7 @@ class Solution {
             }
 
             if( strtCnt < endCnt )  {
-                answer = false;
-                break; 
+                return false;                 
             }
         }
 
