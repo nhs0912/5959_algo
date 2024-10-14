@@ -8,8 +8,7 @@ class Solution
 {
     private static final Stack<Character> basket = new Stack<>();
     public int solution(String s)
-    {
-        int answer = -1;
+    {        
         char[] alphabets = s.toCharArray();        
         
         for(char alphabet : alphabets) {
