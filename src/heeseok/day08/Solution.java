@@ -1,5 +1,4 @@
 package src.heeseok.day08;
-
 import java.util.*;
 /*
  짝지어 제거하기
@@ -7,24 +6,31 @@ import java.util.*;
 */
 class Solution
 {
+    private static final Stack<Character> basket = new Stack<>();
     public int solution(String s)
     {
         int answer = -1;
-        char[] alphabets = s.toCharArray();
-        Stack<Character> basket = new Stack<>();
+        char[] alphabets = s.toCharArray();        
         
         for(char alphabet : alphabets) {
             if(basket.isEmpty()){
                 basket.push(alphabet);
-            }else{
+                continue;
+            }            
+            
+            if(!basket.isEmpty()){
                 char topAlphabet = basket.peek();
-                if(topAlphabet == alphabet) {
-                    basket.pop();
-                }else {
-                    basket.push(alphabet);
-                }
+                saveOrRemoveAlphabet(topAlphabet, alphabet);
             }
         }                      
         return basket.isEmpty()? 1: 0;
+    }
+    
+    private void saveOrRemoveAlphabet(char topAlphabet, char currentAlphabet) {        
+       if(topAlphabet == currentAlphabet){
+         basket.pop();  
+         return;
+        }
+        basket.push(currentAlphabet);        
     }
 }
