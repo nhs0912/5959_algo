@@ -15,12 +15,9 @@ class Solution
             if(basket.isEmpty()){
                 basket.push(alphabet);
                 continue;
-            }            
-            
-            if(!basket.isEmpty()){
-                char topAlphabet = basket.peek();
-                saveOrRemoveAlphabet(topAlphabet, alphabet);
-            }
+            }                                  
+            char topAlphabet = basket.peek();
+            aveOrRemoveAlphabet(topAlphabet, alphabet);            
         }                      
         return basket.isEmpty()? 1: 0;
     }
