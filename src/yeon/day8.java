@@ -17,18 +17,18 @@ public class day8 {
     public static int solution(String s){
         Stack<Character> chars = new Stack<>();
 
-        for(char c : s.toCharArray()){
+        for(char alphabet : s.toCharArray()){
             if(chars.empty()){
-                chars.add(c);
+                chars.push(alphabet);
                 continue;
             }
 
-            if(c == chars.lastElement()){
+            if(alphabet == chars.peek()){
                 chars.pop();
                 continue;
             }
 
-            chars.add(c);
+            chars.push(alphabet);
         }
 
         return chars.isEmpty() ? 1 : 0;
